@@ -1,0 +1,13 @@
+{
+  "name": "mytorrent",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "Klad Vlimov",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bencode": "^4.0.0"
+  }
+}
