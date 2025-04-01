@@ -10,6 +10,6 @@ BitTorrent — это протокол связи для обмена файла
 
 ## Полезные ссылки
 
-["как сформировать запрос к трекеру"](https://www.bittorrent.org/beps/bep_0015.html)
-["bencode шифровщик/дешифровщик"](https://www.npmjs.com/package/bencode)
-["мини-руководство по буферам Node.js"](https://allenkim67.github.io/programming/2016/05/17/nodejs-buffer-tutorial.html)
+- ["как сформировать запрос к трекеру"](https://www.bittorrent.org/beps/bep_0015.html)
+- ["bencode шифровщик/дешифровщик"](https://www.npmjs.com/package/bencode)
+- ["мини-руководство по буферам Node.js"](https://allenkim67.github.io/programming/2016/05/17/nodejs-buffer-tutorial.html)
