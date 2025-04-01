@@ -1,22 +1,22 @@
 import dgram from 'dgram';
 import { Buffer } from 'buffer';
 import { URL } from 'url';
-import udpSend from './utils/updSend';
+import { udpSend } from './utils/udpSend.js';
 import crypto from 'crypto';
-import { group } from './utils/group';
+import { group } from './utils/group.js';
 
 export function getPeers(torrent) {
   return new Promise(resolve => {
     const socket = dgram.createSocket('udp4');
-    const torrentURL = new URL(new TextDecoder().decode(torrent.announce));
+    const torrentUrlObj = new URL(new TextDecoder().decode(torrent.announce));
 
-    udpSend(socket, buildConnectReq(), torrentURL);
+    udpSend(socket, buildConnectReq(), torrentUrlObj);
 
     socket.on('message', response => {
       if (respType(response) === 'connect') {
         const connResp = parseConnectResp(response);
         const announceReq = buildAnnounceReq(connResp.connectionId, torrent);
-        udpSend(socket, announceReq, torrentURL);
+        udpSend(socket, announceReq, torrentUrlObj);
       } else if (respType(response) === 'announce') {
         const announceResp = parseAnnounceResp(response);
         resolve(announceResp.peers);
