@@ -4,6 +4,8 @@ import { URL } from 'url';
 import { udpSend } from './utils/udpSend.js';
 import crypto from 'crypto';
 import { group } from './utils/group.js';
+import { infoHash, size } from './parser.js';
+import { genId } from './utils/genId.js';
 
 export function getPeers(torrent) {
   return new Promise(resolve => {
@@ -61,13 +63,13 @@ function buildAnnounceReq(connId, torrent, port = 6881) {
   // transaction id
   crypto.randomBytes(4).copy(buf, 12);
   // info hash
-  torrentParser.infoHash(torrent).copy(buf, 16);
+  infoHash(torrent).copy(buf, 16);
   // peer id
-  util.genId().copy(buf, 36);
+  genId().copy(buf, 36);
   // downloaded
   Buffer.alloc(8).copy(buf, 56);
   // left
-  torrentParser.size(torrent).copy(buf, 64);
+  size(torrent).copy(buf, 64);
   // uploaded
   Buffer.alloc(8).copy(buf, 72);
   // event
