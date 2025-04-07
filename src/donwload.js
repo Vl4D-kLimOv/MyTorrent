@@ -2,6 +2,8 @@ import net from 'net';
 import { Buffer } from 'buffer';
 import { getPeers } from './tracker';
 import { buildHandshake } from './messages';
+import { buildInterested } from './messages';
+import { parseMessage } from './messages';
 
 export function download(torrent) {
   getPeers(torrent).then(peers => {
@@ -38,7 +40,37 @@ function onWholeMsg(socket, callback) {
 }
 
 function msgHandler(msg, socket) {
-  if (isHandshake(msg)) socket.write(message.buildInterested());
+  if (isHandshake(msg)) {
+    socket.write(buildInterested());
+  } else {
+    const m = parseMessage(msg);
+
+    if (m.id === 0) chokeHandler();
+    if (m.id === 1) unchokeHandler();
+    if (m.id === 4) haveHandler(m.payload);
+    if (m.id === 5) bitfieldHandler(m.payload);
+    if (m.id === 7) pieceHandler(m.payload);
+  }
+}
+
+function chokeHandler() {
+  //...
+}
+
+function unchokeHandler() {
+  //...
+}
+
+function haveHandler(payload) {
+  //...
+}
+
+function bitfieldHandler(payload) {
+  //...
+}
+
+function pieceHandler(payload) {
+  //...
 }
 
 function isHandshake(msg) {
