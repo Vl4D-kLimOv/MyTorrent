@@ -6,5 +6,12 @@ export const udpSend = (
     console.log({ udp_send_error: err });
   }
 ) => {
-  socket.send(message, 0, message.length, url.port, url.hostname, callback);
+  socket.send(
+    message,
+    0,
+    message.length,
+    url.port || 80,
+    url.hostname,
+    callback
+  );
 };
